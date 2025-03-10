@@ -32,7 +32,71 @@ from typing import Callable, Iterable
 # $f(x) = |x - y| < 1e-2$
 
 
-# TODO: Implement for Task 0.1.
+def relu_back(x: float, y: float) -> float:
+    return (1 if x > 0 else 0) * y
+
+
+def inv_back(x: float, y: float) -> float:
+    return -1 * inv(x * x)
+
+
+def log_back(x: float, y: float):
+    return y * inv(x)
+
+
+def inv(x: float) -> float:
+    return 1 / x
+
+
+def log(x: float) -> float:
+    return math.log(x)
+
+
+def relu(x: float) -> float:
+    return max(x, 0)
+
+
+def exp(x: float) -> float:
+    return math.exp(x)
+
+
+def sigmoid(x: float) -> float:
+    if x >= 0:
+        return 1.0 / (1.0 + exp(-x))
+    else:
+        return exp(x) / (1 + exp(x))
+
+
+def is_close(a: float, b: float) -> bool:
+    return -1e-2 < a - b < 1e-2
+
+
+def eq(a: float, b: float) -> bool:
+    return a == b
+
+
+def lt(a: float, b: float) -> bool:
+    return a < b
+
+
+def max(a: float, b: float) -> float:
+    return a if a > b else b
+
+
+def neg(a: float) -> float:
+    return -a
+
+
+def id(a: float) -> float:
+    return a
+
+
+def mul(a: float, b: float):
+    return a * b
+
+
+def add(a: float, b: float):
+    return a + b
 
 
 # ## Task 0.3
@@ -51,4 +115,29 @@ from typing import Callable, Iterable
 # - prod: take the product of lists
 
 
-# TODO: Implement for Task 0.3.
+def map():
+    pass
+
+
+def zipWith():
+    pass
+
+
+def reduce():
+    pass
+
+
+def addLists():
+    pass
+
+
+def negList():
+    pass
+
+
+def sum():
+    pass
+
+
+def prod():
+    pass
