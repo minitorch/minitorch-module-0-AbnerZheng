@@ -41,7 +41,7 @@ class Graph:
     y: List[int]
 
 
-def simple(N: int) -> Tuple[List[Any], List[int]]:
+def simple(N: int) -> Graph:
     """Generate a simple binary classification dataset where points are labeled based on their x-coordinate.
 
     Args:
@@ -50,7 +50,7 @@ def simple(N: int) -> Tuple[List[Any], List[int]]:
 
     Returns:
     -------
-        Tuple[List[Any], List[int]]: A tuple containing the list of points and their corresponding labels.
+        Graph
 
     """
     X = make_pts(N)
@@ -58,10 +58,10 @@ def simple(N: int) -> Tuple[List[Any], List[int]]:
     for x_1, x_2 in X:
         y1 = 1 if x_1 < 0.5 else 0
         y.append(y1)
-    return X, y
+    return Graph(N, X, y)
 
 
-def diag(N: int) -> Tuple[List[Any], List[int]]:
+def diag(N: int) -> Graph:
     """Generate a binary classification dataset where points are labeled based on their position relative to a diagonal line.
 
     Args:
@@ -70,7 +70,7 @@ def diag(N: int) -> Tuple[List[Any], List[int]]:
 
     Returns:
     -------
-        Tuple[List[Any], List[int]]: A tuple containing the list of points and their corresponding labels.
+        Graph
 
     """
     X = make_pts(N)
@@ -78,10 +78,10 @@ def diag(N: int) -> Tuple[List[Any], List[int]]:
     for x_1, x_2 in X:
         y1 = 1 if x_1 + x_2 < 0.5 else 0
         y.append(y1)
-    return X, y
+    return Graph(N, X, y)
 
 
-def split(N: int) -> Tuple[List[Any], List[int]]:
+def split(N: int) -> Graph:
     """Generate a binary classification dataset where points are labeled based on their x-coordinate being outside a specific range.
 
     Args:
@@ -90,7 +90,7 @@ def split(N: int) -> Tuple[List[Any], List[int]]:
 
     Returns:
     -------
-        Tuple[List[Any], List[int]]: A tuple containing the list of points and their corresponding labels.
+        Graph
 
     """
     X = make_pts(N)
@@ -98,10 +98,10 @@ def split(N: int) -> Tuple[List[Any], List[int]]:
     for x_1, x_2 in X:
         y1 = 1 if x_1 < 0.2 or x_1 > 0.8 else 0
         y.append(y1)
-    return X, y
+    return Graph(N, X, y)
 
 
-def xor(N: int) -> Tuple[List[Any], List[int]]:
+def xor(N: int) -> Graph:
     """Generate a binary classification dataset where points are labeled based on the XOR condition.
 
     Args:
@@ -110,7 +110,7 @@ def xor(N: int) -> Tuple[List[Any], List[int]]:
 
     Returns:
     -------
-        Tuple[List[Any], List[int]]: A tuple containing the list of points and their corresponding labels.
+        Graph
 
     """
     X = make_pts(N)
@@ -118,10 +118,10 @@ def xor(N: int) -> Tuple[List[Any], List[int]]:
     for x_1, x_2 in X:
         y1 = 1 if x_1 < 0.5 and x_2 > 0.5 or x_1 > 0.5 and x_2 < 0.5 else 0
         y.append(y1)
-    return X, y
+    return Graph(N, X, y)
 
 
-def circle(N: int) -> Tuple[List[Any], List[int]]:
+def circle(N: int) -> Graph:
     """Generate a binary classification dataset where points are labeled based on their position relative to a circle.
 
     Args:
@@ -139,10 +139,10 @@ def circle(N: int) -> Tuple[List[Any], List[int]]:
         x1, x2 = x_1 - 0.5, x_2 - 0.5
         y1 = 1 if x1 * x1 + x2 * x2 > 0.1 else 0
         y.append(y1)
-    return X, y
+    return Graph(N, X, y)
 
 
-def spiral(N: int) -> Tuple[List[Any], List[int]]:
+def spiral(N: int) -> Graph:
     """Generate a binary classification dataset where points are arranged in a spiral pattern.
 
     Args:
@@ -151,7 +151,7 @@ def spiral(N: int) -> Tuple[List[Any], List[int]]:
 
     Returns:
     -------
-        Tuple[List[Any], List[int]]: A tuple containing the list of points and their corresponding labels.
+        Graph
 
     """
 
@@ -170,7 +170,7 @@ def spiral(N: int) -> Tuple[List[Any], List[int]]:
         for i in range(5 + 0, 5 + N // 2)
     ]
     y2 = [0] * (N // 2) + [1] * (N // 2)
-    return X, y2
+    return Graph(N, X, y2)
 
 
 datasets = {

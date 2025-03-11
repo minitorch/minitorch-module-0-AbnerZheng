@@ -31,7 +31,7 @@ class Network(torch.nn.Module):
 
 
 class Linear(torch.nn.Module):
-     def __init__(self, in_size: int, out_size: int) -> None:
+    def __init__(self, in_size: int, out_size: int) -> None:
         """
         Initializes a linear layer.
 
@@ -41,6 +41,7 @@ class Linear(torch.nn.Module):
         """
         super().__init__()
         self.weight = torch.nn.Parameter(2 * (torch.rand((in_size, out_size)) - 0.5))
+        self.bias = torch.nn.Parameter(2 * (torch.rand((out_size,)) - 0.5))
 
     def forward(self, x):
         return x @ self.weight + self.bias
