@@ -40,7 +40,7 @@ class Linear(torch.nn.Module):
             out_size (int): The size of the output features.
         """
         super().__init__()
-        self.weight = torch.nn.Parameter(2 * (torch.rand((in_size, out_size)) - 0.5)
+        self.weight = torch.nn.Parameter(2 * (torch.rand((in_size, out_size)) - 0.5))
 
     def forward(self, x):
         return x @ self.weight + self.bias
