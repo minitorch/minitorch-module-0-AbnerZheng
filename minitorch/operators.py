@@ -313,9 +313,11 @@ def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[fl
     See https://en.wikipedia.org/wiki/Map_(higher-order_function)
 
     Args:
+    ----
         fn: Function from one value to one value.
 
     Returns:
+    -------
          A function that takes a list, applies `fn` to each element, and returns a
          new list
 
@@ -336,9 +338,11 @@ def zipWith(
     See https://en.wikipedia.org/wiki/Map_(higher-order_function)
 
     Args:
+    ----
         fn: combine two values
 
     Returns:
+    -------
          Function that takes two equally sized lists `ls1` and `ls2`, produce a new list by
          applying fn(x, y) on each pair of elements.
 
@@ -361,9 +365,12 @@ def reduce(
     r"""Higher-order reduce.
 
     Args:
+    ----
         fn: combine two values
-        start: start value $x_0$
+        start (float): start value $x_0$
+
     Returns:
+    -------
          Function that takes a list `ls` of elements
          $x_1 \ldots x_n$ and computes the reduction :math:`fn(x_3, fn(x_2,
          fn(x_1, x_0)))`

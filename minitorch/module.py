@@ -31,29 +31,41 @@ class Module:
 
     def train(self) -> None:
         """Set the mode of this module and all descendent modules to `train`."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = True
+        for m in self.modules():
+            m.train()
 
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = False
+        for m in self.modules():
+            m.eval()
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
-        """Collect all the parameters of this module and its descendents.
+        """Collect all the parameters of this module and its descendants.
 
         Returns
         -------
             The name and `Parameter` of each ancestor parameter.
 
         """
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        ret = list()
+        ret.extend(self._parameters.items())
+        for name, module in self._modules.items():
+            t = [
+                (name + "." + name2, parameter)
+                for name2, parameter in module.named_parameters()
+            ]
+            ret.extend(t)
+        return ret
 
     def parameters(self) -> Sequence[Parameter]:
-        """Enumerate over all the parameters of this module and its descendents."""
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        """Enumerate over all the parameters of this module and its descendent."""
+        ret = list()
+        ret.extend(self._parameters.values())
+        for m in self.modules():
+            ret.extend(m.parameters())
+        return ret
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """Manually add a parameter. Useful helper for scalar parameters.
@@ -89,6 +101,7 @@ class Module:
         return None
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        """Allows an instance of the class to be called as a function."""
         return self.forward(*args, **kwargs)
 
     def __repr__(self) -> str:
