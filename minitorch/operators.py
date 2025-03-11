@@ -1,6 +1,7 @@
 """Collection of the core mathematical operators used throughout the code base."""
 
 import math
+from typing import Callable, Iterable
 
 # ## Task 0.1
 
@@ -274,7 +275,7 @@ def mul(a: float, b: float) -> float:
     return a * b
 
 
-def add(a: float, b: float):
+def add(a: float, b: float) -> float:
     """Compute the sum of two numbers.
 
     Args:
@@ -306,29 +307,84 @@ def add(a: float, b: float):
 # - prod: take the product of lists
 
 
-def map():
-    pass
+def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
+    """Higher-order map.
+
+    See https://en.wikipedia.org/wiki/Map_(higher-order_function)
+
+    Args:
+        fn: Function from one value to one value.
+
+    Returns:
+         A function that takes a list, applies `fn` to each element, and returns a
+         new list
+
+    """
+    return lambda ls: [fn(e) for e in ls]
 
 
-def zipWith():
-    pass
+def negList(ls: Iterable[float]) -> Iterable[float]:
+    """Use `map` and `neg` to negate each element in `ls`"""
+    return map(neg)(ls)
 
 
-def reduce():
-    pass
+def zipWith(
+    fn: Callable[[float, float], float],
+) -> Callable[[Iterable[float], Iterable[float]], Iterable[float]]:
+    """Higher-order zipwith (or map2).
+
+    See https://en.wikipedia.org/wiki/Map_(higher-order_function)
+
+    Args:
+        fn: combine two values
+
+    Returns:
+         Function that takes two equally sized lists `ls1` and `ls2`, produce a new list by
+         applying fn(x, y) on each pair of elements.
+
+    """
+
+    def apply(a: Iterable[float], b: Iterable[float]) -> Iterable:
+        return [fn(aa, bb) for (aa, bb) in zip(a, b)]
+
+    return apply
 
 
-def addLists():
-    pass
+def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
+    """Add the elements of `ls1` and `ls2` using `zipWith` and `add`"""
+    return zipWith(add)(ls1, ls2)
 
 
-def negList():
-    pass
+def reduce(
+    fn: Callable[[float, float], float], start: float
+) -> Callable[[Iterable[float]], float]:
+    r"""Higher-order reduce.
+
+    Args:
+        fn: combine two values
+        start: start value $x_0$
+    Returns:
+         Function that takes a list `ls` of elements
+         $x_1 \ldots x_n$ and computes the reduction :math:`fn(x_3, fn(x_2,
+         fn(x_1, x_0)))`
+
+    """
+
+    def apply(ls: Iterable[float]) -> float:
+        prev = start
+        for e in ls:
+            prev = fn(prev, e)
+
+        return prev
+
+    return apply
 
 
-def sum():
-    pass
+def sum(ls: Iterable[float]) -> float:
+    """Sum up a list using `reduce` and `add`."""
+    return reduce(add, 0)(ls)
 
 
-def prod():
-    pass
+def prod(ls: Iterable[float]) -> float:
+    """Product of a list using `reduce` and `mul`."""
+    return reduce(mul, 1)(ls)
