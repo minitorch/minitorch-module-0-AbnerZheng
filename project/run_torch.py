@@ -1,14 +1,22 @@
 import torch
-
 import minitorch
 
 
-def default_log_fn(epoch, total_loss, correct, losses):
+def default_log_fn(epoch: int, total_loss: float, correct: int, losses: list) -> None:
+    """
+    Logs the training progress.
+
+    Args:
+        epoch (int): The current epoch number.
+        total_loss (float): The total loss for the epoch.
+        correct (int): The number of correct predictions.
+        losses (list): A list of losses for each batch in the epoch.
+    """
     print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
 
 
 class Network(torch.nn.Module):
-    def __init__(self, hidden_layers):
+    def __init__(self, hidden_layers: int):
         super().__init__()
 
         # Submodules
@@ -23,7 +31,14 @@ class Network(torch.nn.Module):
 
 
 class Linear(torch.nn.Module):
-    def __init__(self, in_size, out_size):
+    def __init__(self, in_size: int, out_size: int) -> None:
+        """
+        Initializes a linear layer.
+
+        Args:
+            in_size (int): The size of the input features.
+            out_size (int): The size of the output features.
+        """
         super().__init__()
         self.weight = torch.nn.Parameter(2 * (torch.rand((in_size, out_size)) - 0.5))
         self.bias = torch.nn.Parameter(2 * (torch.rand((out_size,)) - 0.5))
